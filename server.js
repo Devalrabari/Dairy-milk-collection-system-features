@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Cloud Connection
-mongoose.connect(process.env.MONGO_URI || "mongodb+srv://devalrabari7990:deval7998@cluster0.4rxrknt.mongodb.net/dairy")
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://devalrabari7998:deval7998@cluster0.4rxrknt.mongodb.net/dairy")
 .then(() => console.log("MongoDB Cloud Connected!"))
 .catch(err => console.log("❌ DB Connection Error:", err));
 
