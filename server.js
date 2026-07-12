@@ -165,3 +165,6 @@ app.delete('/api/milk/:userScope/:idx', async (req, res) => {
         }
         res.json({ success: true });
     } catch (e) { res.status(500).json({ error: e.message }); }
+  const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  
