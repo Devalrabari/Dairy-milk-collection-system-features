@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 // ⚠️ અહિયાં તમારી MongoDB Atlas ની કનેક્શન લિંક નાખવી
-const MONGO_URI = process.env.MONGO_URI || "તમારી_MONGODB_CLUSTER_LINK_અહીં_નાખો";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://devalrabari7998_db_user:<db_password>@cluster0.4rsrknt.mongodb.net/?appName=Cluster0";
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log("🔥 MongoDB Cloud Connected..."))
