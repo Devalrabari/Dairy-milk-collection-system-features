@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 // ✅ અહીં તમારી MongoDB Atlas ની સાચી લિંક પ્રોપર સેટ કરી દીધી છે
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://devalrabari7990:db_user-db_password@cluster0.4rxrknt.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://devalrabari7990:deval7998@cluster0.4rxrknt.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log("🔥 MongoDB Cloud Connected..."))
