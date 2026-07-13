@@ -6,8 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB Cloud Connection
-mongoose.connect(process.env.MONGO_URI || "mongodb+srv://devalrabari7998:deval7998@cluster0.4rxrknt.mongodb.net/dairy")
+// MongoDB Cloud Connection (તમારી નવી કનેક્શન લિંક સાથે)
+// ⚠️ ધ્યાન રાખજો: નીચે લિંકમાં <db_password> ની જગ્યાએ તમારો સાચો પાસવર્ડ લખવો.
+const MONGO_URI = "mongodb+srv://devalrabari7998_db_user:deval7998@cluster0.4rsrknt.mongodb.net/dairy?appName=Cluster0";
+
+mongoose.connect(MONGO_URI)
 .then(() => console.log("MongoDB Cloud Connected!"))
 .catch(err => console.log("❌ DB Connection Error:", err));
 
@@ -15,7 +18,6 @@ mongoose.connect(process.env.MONGO_URI || "mongodb+srv://devalrabari7998:deval79
 // 1. SCHEMAS & MODELS
 // ==========================================
 
-// Users Schema
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     mobile: { type: String, required: true, unique: true },
@@ -23,7 +25,6 @@ const userSchema = new mongoose.Schema({
 });
 const user = mongoose.model('user', userSchema);
 
-// Milk Collection Schema
 const milkSchema = new mongoose.Schema({
     date: String,
     userScope: String,
@@ -36,14 +37,12 @@ const milkSchema = new mongoose.Schema({
 });
 const MilkEntry = mongoose.model('MilkEntry', milkSchema);
 
-// Farmer (Grahak) Schema
 const farmerSchema = new mongoose.Schema({
     userScope: { type: String, required: true },
     id: { type: String, required: true },
     farmerName: { type: String, required: true },
     mobile: { type: String, required: true }
 });
-// Composite index to keep combination of userScope and id unique
 farmerSchema.index({ userScope: 1, id: 1 }, { unique: true });
 const farmer = mongoose.model('farmer', farmerSchema);
 
@@ -51,7 +50,6 @@ const farmer = mongoose.model('farmer', farmerSchema);
 // 2. API ROUTES
 // ==========================================
 
-// Register Operator
 app.post('/api/register', async (req, res) => {
     try {
         const { username, mobile, pass } = req.body;
@@ -66,7 +64,6 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// Login Operator
 app.post('/api/login', async (req, res) => {
     try {
         const { mobile, pass } = req.body;
@@ -78,7 +75,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// Add Farmer
 app.post('/api/farmers', async (req, res) => {
     try {
         const { userScope, id, farmerName, mobile } = req.body;
@@ -93,7 +89,6 @@ app.post('/api/farmers', async (req, res) => {
     }
 });
 
-// Get All Farmers by Operator
 app.get('/api/farmers/:userScope', async (req, res) => {
     try {
         const farmers = await farmer.find({ userScope: req.params.userScope });
@@ -103,7 +98,6 @@ app.get('/api/farmers/:userScope', async (req, res) => {
     }
 });
 
-// Add Milk Entry
 app.post('/api/milk', async (req, res) => {
     try {
         const { date, userScope, userid, shift, liter, fat, rate, total } = req.body;
@@ -115,7 +109,6 @@ app.post('/api/milk', async (req, res) => {
     }
 });
 
-// Get Milk Records by Date & Shift
 app.get('/api/milk/:userid', async (req, res) => {
     try {
         const { date, shift } = req.query;
@@ -130,7 +123,6 @@ app.get('/api/milk/:userid', async (req, res) => {
     }
 });
 
-// Delete Farmer
 app.delete('/api/farmers/:userScope/:id', async (req, res) => {
     try {
         await farmer.deleteOne({ userScope: req.params.userScope, id: req.params.id });
@@ -140,7 +132,6 @@ app.delete('/api/farmers/:userScope/:id', async (req, res) => {
     }
 });
 
-// Save/Update Milk Entry
 app.post('/api/milk/edit', async (req, res) => {
     try {
         const { editIdx, targetScope, record } = req.body;
@@ -159,7 +150,6 @@ app.post('/api/milk/edit', async (req, res) => {
     }
 });
 
-// Delete Milk Entry
 app.delete('/api/milk/:userScope/:idx', async (req, res) => {
     try {
         const entries = await MilkEntry.find({ userScope: req.params.userScope });
@@ -178,3 +168,4 @@ app.delete('/api/milk/:userScope/:idx', async (req, res) => {
 // ==========================================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
