@@ -449,9 +449,8 @@
         </div>
     </div>
 
-</div>
-
-<script>
+ </div>
+    <script>
     // ⚠️ અહિયાં Render પર તમારો બેકએન્ડ કોડ લાઈવ થયા પછી જે લિંક મળે તે અહીં નાખવી
     const API_BASE_URL = "https://dairy-milk-collection-system-features.onrender.com"; 
 
@@ -491,6 +490,12 @@
             loadMasterUsersSystemTable();
             document.getElementById('master-user-data-container').style.display = 'none';
         }
+    }
+
+    // 🛠️ સુધારો: ગાયબ રહેલું 'openOperatorAdmin' ફંક્શન અહીં ઉમેર્યું છે
+    function openOperatorAdmin(event) {
+        if(event) event.preventDefault();
+        showScreen('operator-admin-screen');
     }
 
     function toggleAuthForms(type, event) {
@@ -750,3 +755,4 @@
 </script>
 </body>
 </html>
+                    
