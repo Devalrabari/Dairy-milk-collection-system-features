@@ -181,6 +181,10 @@ app.get('/api/super/users', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+// હોમ પેજ (/) ખોલતા જ index.html ફાઈલ દેખાડવા માટે
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
 // ==========================================
 // 4. SERVER START
